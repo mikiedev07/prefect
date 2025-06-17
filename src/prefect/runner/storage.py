@@ -191,11 +191,12 @@ class GitRepository:
         components = urlparse(url)
         credentials = self._formatted_credentials
 
-        if components.scheme != "https" or not credentials:
+        # if components.scheme != "https" or not credentials:
+        if not credentials:
             return url
 
         return urlunparse(
-            components._replace(netloc=f"{credentials}@{components.netloc}")
+            components._replace(netloc=f"oauth2:{credentials}@{components.netloc}")
         )
 
     @property
